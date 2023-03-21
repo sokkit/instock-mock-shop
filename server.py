@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 print( "running")
 
@@ -28,3 +28,18 @@ def get_listings():
 def get_listings_by_shopId(shopId):
     listings_with_shopId = [listing for listing in listings if listing['shopId'] == shopId]
     return jsonify(listings_with_shopId)
+
+@app.route('/listings', methods=['POST'])
+def add_listing():
+    new_listing = request.get_json()
+    new_listing['itemId'] = len(listings) + 1 
+    listings.append(new_listing)
+    return jsonify({'message': 'Listing added successfully', 'listing': new_listing}), 201
+
+@app.route('/listings/<int:item_id>', methods=['GET'])
+def get_listing(item_id):
+    listing = next((listing for listing in listings if listing['itemId'] == item_id), None)
+    if listing:
+        return jsonify(listing)
+    else:
+        return jsonify({'message': 'Item not found'}), 404
