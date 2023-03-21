@@ -43,3 +43,29 @@ def get_listing(item_id):
         return jsonify(listing)
     else:
         return jsonify({'message': 'Item not found'}), 404
+
+@app.route('/listings/<int:item_id>/live-orders', methods=['PUT'])
+def update_listing_live_orders(item_id):
+    # Get the request body data
+    data = request.get_json()
+    # Find the listing with the given item ID
+    listing = next((listing for listing in listings if listing['itemId'] == item_id), None)
+    if listing is not None:
+        # Update the listing's liveOrders value
+        listing['liveOrders'] = data['liveOrders']
+        return jsonify({'message': 'Listing updated successfully.'}), 200
+    else:
+        return jsonify({'message': 'Listing not found.'}), 404
+
+@app.route('/listings/<int:item_id>/sales', methods=['PUT'])
+def update_listing_sales(item_id):
+    # Get the request body data
+    data = request.get_json()
+    # Find the listing with the given item ID
+    listing = next((listing for listing in listings if listing['itemId'] == item_id), None)
+    if listing is not None:
+        # Update the listing's sales value
+        listing['sales'] = data['sales']
+        return jsonify({'message': 'Listing updated successfully.'}), 200
+    else:
+        return jsonify({'message': 'Listing not found.'}), 404
