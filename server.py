@@ -18,7 +18,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
-    return "<p>Hello, World!</p>"
+    return "<p>InStock Mock Shop</p>"
 
 @app.route('/listing')
 def get_listings():
@@ -46,12 +46,9 @@ def get_listing(item_id):
 
 @app.route('/listings/<int:item_id>/live-orders', methods=['PUT'])
 def update_listing_live_orders(item_id):
-    # Get the request body data
     data = request.get_json()
-    # Find the listing with the given item ID
     listing = next((listing for listing in listings if listing['itemId'] == item_id), None)
     if listing is not None:
-        # Update the listing's liveOrders value
         listing['liveOrders'] = data['liveOrders']
         return jsonify({'message': 'Listing updated successfully.'}), 200
     else:
@@ -59,13 +56,20 @@ def update_listing_live_orders(item_id):
 
 @app.route('/listings/<int:item_id>/sales', methods=['PUT'])
 def update_listing_sales(item_id):
-    # Get the request body data
     data = request.get_json()
-    # Find the listing with the given item ID
     listing = next((listing for listing in listings if listing['itemId'] == item_id), None)
     if listing is not None:
-        # Update the listing's sales value
         listing['sales'] = data['sales']
+        return jsonify({'message': 'Listing updated successfully.'}), 200
+    else:
+        return jsonify({'message': 'Listing not found.'}), 404
+    
+@app.route('/listings/<int:item_id>/stock', methods=['PUT'])
+def update_listing_stock(item_id):
+    data = request.get_json()
+    listing = next((listing for listing in listings if listing['itemId'] == item_id), None)
+    if listing is not None:
+        listing['stock'] = data['stock']
         return jsonify({'message': 'Listing updated successfully.'}), 200
     else:
         return jsonify({'message': 'Listing not found.'}), 404
