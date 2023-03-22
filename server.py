@@ -20,7 +20,7 @@ app = Flask(__name__)
 def hello_world():
     return "<p>InStock Mock Shop</p>"
 
-@app.route('/listing')
+@app.route('/listings')
 def get_listings():
     return jsonify(listings)
 
