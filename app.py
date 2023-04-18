@@ -6,23 +6,23 @@ print("running")
 
 listings = [
     {"itemId": 1, "shopId": 1, "shopName": "Johns Business",
-        "itemName": "Birthday Cockatoo", "liveOrders": 0, "stock": 30, "sales": 50},
+        "itemName": "Birthday Cockatoo", "liveOrders": 3, "stock": 20, "sales": 32},
     {"itemId": 2, "shopId": 1, "shopName": "Johns Business",
-        "itemName": "Blank Koala", "liveOrders": 0, "stock": 25, "sales": 53},
+        "itemName": "Blank Koala", "liveOrders": 4, "stock": 15, "sales": 31},
     {"itemId": 3, "shopId": 1, "shopName": "Johns Business",
-        "itemName": "Birthday Crocodile", "liveOrders": 0, "stock": 33, "sales": 45},
+        "itemName": "Birthday Crocodile", "liveOrders": 6, "stock": 40, "sales": 16},
     {"itemId": 4, "shopId": 2, "shopName": "TillyScribbles",
-        "itemName": "Nestle Pure Life", "liveOrders": 0, "stock": 31, "sales": 40},
+        "itemName": "Nestle Pure Life", "liveOrders": 7, "stock": 18, "sales": 30},
     {"itemId": 5, "shopId": 2, "shopName": "TillyScribbles",
-        "itemName": "Birthday LLama", "liveOrders": 0, "stock": 10, "sales": 20},
+        "itemName": "Birthday LLama", "liveOrders": 1, "stock": 19, "sales": 22},
     {"itemId": 6, "shopId": 2, "shopName": "TillyScribbles",
-        "itemName": "Magic Avocado", "liveOrders": 0, "stock": 12, "sales": 10},
+        "itemName": "Magic Avocado", "liveOrders": 2, "stock": 22, "sales": 18},
     {"itemId": 7, "shopId": 3, "shopName": "Emmas Business",
-        "itemName": "Bin Chicken", "liveOrders": 0, "stock": 30, "sales": 10},
+        "itemName": "Bin Chicken", "liveOrders": 3, "stock": 40, "sales": 10},
     {"itemId": 8, "shopId": 3, "shopName": "Emmas Business",
-        "itemName": "Christmas Giraffe", "liveOrders": 0, "stock": 8, "sales": 15},
+        "itemName": "Christmas Giraffe", "liveOrders": 4, "stock": 12, "sales": 11},
     {"itemId": 9, "shopId": 3, "shopName": "Emmas Business",
-        "itemName": "Elephant Sticker", "liveOrders": 0, "stock": 10, "sales": 12},
+        "itemName": "Elephant Sticker", "liveOrders": 5, "stock": 15, "sales": 17},
 ]
 
 app = Flask(__name__)
@@ -35,15 +35,15 @@ def hello_world():
 # Generated using ChatGPT
 # Prompt given
 # Can you create an endpoint that lets users login by sending a shopname that is within the listings and a password of "Password123"
-# and returns a mock auth token if the login is successful 
+# and returns a mock auth token if the login is successful
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
 
-    if 'shopName' not in data or 'password' not in data:
-        return jsonify({'message': 'Missing shopName or password'}), 400
+    if 'username' not in data or 'password' not in data:
+        return jsonify({'message': 'Missing username or password'}), 400
 
-    shop_name = data['shopName']
+    shop_name = data['username']
     password = data['password']
 
     if any(listing['shopName'] == shop_name for listing in listings) and password == "Password123":
